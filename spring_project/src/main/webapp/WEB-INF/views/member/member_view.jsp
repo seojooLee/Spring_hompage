@@ -6,6 +6,28 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(function() {
+	$("#btnDelete").click(function(){
+		if(confirm("삭제하시겠습니까?")){
+			document.form1.action="${path}/project/member/delete";
+			document.form1.submit(); 
+		} 
+	});
+	
+	$("#btnUpdate").click(function(){
+		if(confirm("수정하시겠습니까?")){
+			document.form1.action="${path}/project/member/update";
+			document.form1.submit(); 
+		} 
+	});	
+	
+})
+ 
+</script>
+ 
+
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
@@ -22,6 +44,9 @@
 <input type="button" value="수정" id="btnUpdate">
 <input type="button" value="삭제" id="btnDelete"><br>
 </form>
+<div style="color:red; font-size:24px;">
+${message}
+</div>
 
 <!-- 테스트 1)member/write==> 입력 => 등록 => 리스트 뜨는지 확인 -->
 

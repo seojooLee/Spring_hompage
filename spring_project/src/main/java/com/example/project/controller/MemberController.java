@@ -69,7 +69,17 @@ public class MemberController {
 	@RequestMapping("member/update")
 	public String memberUpdate(@ModelAttribute MemberVO vo, Model model) {
 		boolean result = memberService.checkPw(vo.getUserId(), vo.getUserId());
-		return null;
+		if(result) {
+			memberService.updateMember(vo);
+			return "redirect:/member/list.do";
+		}else {
+			MemberVO vo2 = memberService.viewMember(vo.getUserId());
+			vo.setUserRegdate(vo2.getUserRegdate());
+			vo.setUserUpdatedate(vo2.getUserUpdatedate());
+			model.addAttribute("dto",vo);
+			model.addAttribute("message","비밀번호 불일치");
+			return "member/member_view";
+		}
 		 
 	}
 	

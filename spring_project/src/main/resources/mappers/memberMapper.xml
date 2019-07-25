@@ -11,8 +11,7 @@ select * from tbl_member order by userName
 </select>
 
 <insert id="insertMember">
-insert into tbl_member 
-(userid, userpw, username, useremail)
+insert into tbl_member(userid, userpw, username, useremail)
 values 
 (#{userId}, #{userPw}, #{userName}, #{userEmail})
 
