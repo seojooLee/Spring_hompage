@@ -76,17 +76,33 @@
 			</tr>
 		</c:forEach>
 		<tr>
-			<td colspan="5">
-			
-			<c:if test="${map.boardPager.curBlock>1 }">
+			<td colspan="5"><c:if test="${map.boardPager.curBlock>1 }">
 					<a href="javascript:list('1')"> [처음]</a>
 					<!--페이지가 1이면 처음이라는 글을 보여줌  -->
-				</c:if>
-				
-					<c:if test="${map.boardPager.curBlock>1 }">
+				</c:if> <c:if test="${map.boardPager.curBlock>1 }">
 					<a href="javascript:list('${map.boardPager.prevPage}')"> [이전]</a>
 					<!--페이지가 1이면 처음이라는 글을 보여줌  -->
+				</c:if> <!--처음, 이전, 번호들 나열, 다음, 끝  --> <c:forEach var="num"
+					begin="${map.boardPager.blockBegin}"
+					end="${map.boardPager.blockEnd}">
+					<c:choose>
+						<c:when test="${num==map.boardPager.curPage}">
+							<span style="color: red"> ${num} </span>
+						</c:when>
+						<c:otherwise>
+							<a href="javascript:list('${num}')">${num}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				
+				<c:if test="${map.boardPager.curBlock<=map.boardPager.totBlock}">
+				<a href="javascript:list('${map.boardPager.nextPage }')">다음</a> 
 				</c:if>
+				
+					<c:if test="${map.boardPager.curBlock<=map.boardPager.totPage}">
+				<a href="javascript:list('${map.boardPager.totPage }')">끝</a> 
+				</c:if>
+			 
 				
 				</td>
 
