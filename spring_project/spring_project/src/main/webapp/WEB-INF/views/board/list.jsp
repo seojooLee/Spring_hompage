@@ -6,6 +6,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file = "../include/header.jsp" %>
+<!-- 글쓰기 기능 부여(list.jsp) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+<script>
+
+$(function(){
+	$("#btnWrite").click(function(){
+		location.href = "${path}/project/board/write";		
+	});
+})
+
+</script>
+
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>

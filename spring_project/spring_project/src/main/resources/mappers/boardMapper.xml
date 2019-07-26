@@ -41,7 +41,7 @@ order by bno desc, regdate desc
 </select>
 
 
-
+<!--  5-2 검색 기능이 있는 전체 목록 -->
 <sql id="search">
 	<choose>
 		<when test= "searchOption.equals('all')">
@@ -55,6 +55,22 @@ order by bno desc, regdate desc
 	</otherwise>  
 	</choose> 
 </sql>
+ 
+<!--5) 페이지 기능이 들어가는 목록   -->
+<select id="listAll" resultType="com.example.project.vo.BoardVO">
+select * from tbl_board
+<include refid="search"></include>
+ order by bno desc, regdate desc
+ <include refid="paging"></include>
+</select>
+
+<sql id = "paging"> 
+limit #{start},#{end} 
+</sql>
+ 
+ 
+ 
+ 
  
 
 <!-- 6) 조회수 -->

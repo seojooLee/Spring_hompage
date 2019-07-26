@@ -52,16 +52,30 @@ public class BoardDAOImpl implements BoardDAO {
 
 	}
 
+	/*
+	 * @Override//검색어를 이용한 글 목록 구현 public List<BoardVO> listAll(String searchOption,
+	 * String keyword) throws Exception {
+	 * 
+	 * Map<String, String> map = new HashMap<String,String>();
+	 * map.put("searchOption", searchOption); map.put("keyword",keyword); return
+	 * sqlSession.selectList("board.listAll",map);
+	 * 
+	 * }
+	 */
+	//페이지 범위
 	@Override
-	public List<BoardVO> listAll(String searchOption, String keyword) throws Exception {
+	public List<BoardVO> listAll(int start, int end , String searchOption, String keyword) throws Exception {
  		
-		Map<String, String> map = new HashMap<String,String>();
+		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("searchOption", searchOption);
 		map.put("keyword",keyword);
+		map.put("start",start);
+		map.put("end", end);
 		return sqlSession.selectList("board.listAll",map);
 		 
 	}
 
+	 
 	 
 	   @Override 
 		public int countArticle(String searchOption, String keyword) throws Exception{
