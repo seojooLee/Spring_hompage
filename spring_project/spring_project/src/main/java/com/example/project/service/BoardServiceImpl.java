@@ -36,14 +36,17 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.delete(bno);
 	}
 
+		//5-1 전체 목록 보기 
+	/*
+	 * @Override public List<BoardVO> listAll() throws Exception { return
+	 * boardDao.listAll(); }
+	 */                                                                                                                                                                                                                                                                                                                 
+             
 	@Override
-	public List<BoardVO> listAll() throws Exception {
-		return boardDao.listAll();
-	}                                                                                                                                                                                                                                                                                                                                      
-	
-	
-	
-	
+	public List<BoardVO> listAll(String searchOption, String keyword) throws Exception {
+		return boardDao.listAll(searchOption, keyword);  
+	}
+	  
 
 
 	@Override
@@ -59,4 +62,10 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
+	@Override
+	public int countArticle(String searchOption, String keyword) throws Exception {
+		return boardDao.countArticle(searchOption, keyword);
+  	}
+
+	
 }

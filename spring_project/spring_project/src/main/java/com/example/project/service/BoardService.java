@@ -15,8 +15,16 @@ public interface BoardService {
 	public void update(BoardVO vo) throws Exception;
 	//4) 삭제
 	public void delete(int bno) throws Exception;
-	//5) 전체보기
-	public List<BoardVO> listAll() throws Exception;
+//	//5) 전체보기
+//	public List<BoardVO> listAll() throws Exception;
+	
+	//5-2 검색어를 이용한 보기
+	public List<BoardVO> listAll(String searchOption, String keyword) throws Exception;
+	
 	//6) 조회수
 	public void increaseViewcnt(int bno, HttpSession session) throws Exception;
+	
+	//7 갯수
+	public int countArticle(String searchOption, String keyword) throws Exception;
+
 }

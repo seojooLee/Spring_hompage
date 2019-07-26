@@ -28,14 +28,46 @@ where bno=#{bno}
 delete from tbl_board where bno=#{bno}
 </delete>
 
-<!-- 5) 게시글 전체목록 : bno 내림차순, 날짜로 내림차순..-->
+<!-- 5) 게시글 전체목록 : bno 내림차순, 날짜로 내림차순..
 <select id="listAll" resultType="com.example.project.vo.BoardVO">
 select * from tbl_board order by bno desc, regdate desc
 </select>
+ -->
+
+<!-- 5) 게시글 전체목록 : bno 내림차순, 날짜로 내림차순..-->
+<select id="listAll" resultType="com.example.project.vo.BoardVO">
+select * from tbl_board <include refid="search"></include>
+order by bno desc, regdate desc
+</select>
+
+
+
+<sql id="search">
+	<choose>
+		<when test= "searchOption.equals('all')">
+			where writer like concat('%',#{keyword}, '%')
+			or content like concat('%',#{keyword},'%')
+			or title like concat('%',#{keyword},'%')
+		 </when>
+	
+	<otherwise>
+	where ${searchOption} like concat('%',#{keyword}, '%') 
+	</otherwise>  
+	</choose> 
+</sql>
+ 
 
 <!-- 6) 조회수 -->
 <update id="increaseViewcnt">
 update tbl_board set viewcnt = viewcnt +1
 where bno=#{bno}
 </update>
+
+
+<!-- 7> 검색어 들어간 레코드 갯수 -->
+<select id = "countArticle" resultType="int">
+select count(*) from tbl_board
+<include refid="search"></include> 
+ </select>
 </mapper>
+

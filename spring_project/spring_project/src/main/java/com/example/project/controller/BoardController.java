@@ -1,6 +1,8 @@
 package com.example.project.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -22,14 +24,38 @@ public class BoardController {
 	BoardService boardService;
 	
 	//1) 리스트(게시글 목록)
+	/*
+	 * @RequestMapping("board/list") public ModelAndView list() throws Exception{
+	 * List<BoardVO> list = boardService.listAll(); ModelAndView mav = new
+	 * ModelAndView(); mav.addObject("list", list); mav.setViewName("board/list");
+	 * return mav; }
+	 */
+	
+	
+	//1-2> 리스트(검색기능이 있는 게시글 목록) 
+	
 	@RequestMapping("board/list")
-	public ModelAndView list() throws Exception{
-		List<BoardVO> list = boardService.listAll();
+	public ModelAndView list(@RequestParam(defaultValue="title") String searchOption, @RequestParam(defaultValue="")String keyword) throws Exception {
+		List<BoardVO> list = boardService.listAll(searchOption,keyword);
+		int count = boardService.countArticle(searchOption,keyword);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", list);
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("list",list);
+		map.put("count",count);
+		map.put("serachOption",searchOption);
+		map.put("keyword",keyword);
+		mav.addObject("map",map);
 		mav.setViewName("board/list");
 		return mav;
-	}
+ 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//2) 등록 폼
 	@RequestMapping(value="board/write", method=RequestMethod.GET)

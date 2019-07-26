@@ -31,7 +31,9 @@ $("#btnUpdate").click(function(){
 //삭제하기
 $("#btnDelete").click(function(){
 	if(confirm("삭제하시겠습니까?")){
+	//document.form1.action="${path}/project/board/delete?bno=${dto.bno}";
 	document.form1.action="${path}/project/board/delete";
+
 	document.form1.submit();
 	alert("성공");
 	} else {
@@ -39,12 +41,7 @@ $("#btnDelete").click(function(){
 	}
 });
 });
-
-
-
-
-
-
+ 
 
 </script>
 </head>
