@@ -41,10 +41,17 @@ public class BoardServiceImpl implements BoardService {
 	 * @Override public List<BoardVO> listAll() throws Exception { return
 	 * boardDao.listAll(); }
 	 */                                                                                                                                                                                                                                                                                                                 
-             
+        
+	//검색어를 이용한 목록
+	/*
+	 * @Override public List<BoardVO> listAll(String searchOption, String keyword)
+	 * throws Exception { return boardDao.listAll(searchOption, keyword); }
+	 */
+	
 	@Override
-	public List<BoardVO> listAll(String searchOption, String keyword) throws Exception {
-		return boardDao.listAll(searchOption, keyword);  
+	public List<BoardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
+		return boardDao.listAll(start, end, searchOption, keyword);
+	
 	}
 	  
 
