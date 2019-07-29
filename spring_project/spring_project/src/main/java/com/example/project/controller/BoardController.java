@@ -53,7 +53,7 @@ public class BoardController {
 			throws Exception {
 		int count = boardService.countArticle(searchOption, keyword);
 		BoardPager boardPager = new BoardPager(count, curPage);
-		int start = boardPager.getPageBegin();// 글시작
+		int start = boardPager.getPageBegin()-1;// 글시작
 		int end = boardPager.getPageEnd(); // 글끝
 		List<BoardVO> list = boardService.listAll(start, end, searchOption, keyword);
 
@@ -70,17 +70,32 @@ public class BoardController {
 
 	}
 
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 	// 2) 등록 폼
 	@RequestMapping(value = "board/write", method = RequestMethod.GET)
 	public String write() {
 		return "board/write";
 	}
+	
+	
+	
+	
 
 	// 3) 등록
 	@RequestMapping(value = "board/insert", method = RequestMethod.POST)
-	public String insert(@ModelAttribute BoardVO vo) throws Exception {
-		boardService.create(vo);
-
+	public String insert(@ModelAttribute BoardVO vo, HttpSession session) throws Exception {
+		String writer = (String) session.getAttribute("userId");
+		String userName = (String) session.getAttribute("userName");
+		vo.setWriter(writer);
+		vo.setUserName(userName); 
+		boardService.create(vo); 
 		return "redirect:list";
 	}
 

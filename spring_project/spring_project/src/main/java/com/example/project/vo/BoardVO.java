@@ -10,8 +10,8 @@ public class BoardVO {
 	private String content; //글내용
 	private String writer; //작성자
 	private Date regdate; //작성날짜
-	private int viewcnt; //조회수
-	
+	private int viewcnt; //조회수 ==> getter/setter 추가
+	private String userName; // 사용자 이름
 	//getter/setter
 	//toString 자동추가 ==>
 	
@@ -50,6 +50,17 @@ public class BoardVO {
 	}
 	public void setViewcnt(int viewcnt) {
 		this.viewcnt = viewcnt;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	@Override
+	public String toString() {
+		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regdate="
+				+ regdate + ", viewcnt=" + viewcnt + ", userName=" + userName + "]";
 	}
 	
 	

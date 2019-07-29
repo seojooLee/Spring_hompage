@@ -56,12 +56,26 @@ order by bno desc, regdate desc
 </sql>
  
 <!--5-3) 페이지 기능이 들어가는 목록   -->
-<select id="listAll" resultType="com.example.project.vo.BoardVO">
+<select id="listAll3" resultType="com.example.project.vo.BoardVO">
 select * from tbl_board
 <include refid="search"></include>
  order by bno desc, regdate desc
  <include refid="paging"></include>
 </select>
+
+<!--5-4) 회원전용 게시판 목록  -->
+<select id="listAll" resultType="com.example.project.vo.BoardVO">
+ select bno,title, content, b.regdate, viewcnt, username where tbl_board b, tbl_member m
+
+
+<include refid="search"></include>
+ order by bno desc, regdate desc
+ <include refid="paging"></include>
+</select>
+
+
+
+
 
 <sql id = "paging"> 
 limit #{start},#{end} 

@@ -12,7 +12,7 @@
 ${msg} <br>
 
 <a href="http://localhost:8088/project/member/list"> 회원가입</a><br>
-<a href="#"> 로그인</a><br>
+<a href="http://localhost:8088/project/login/login"> 로그인</a><br>
 <a href="http://localhost:8088/project/board/list"> 게시판</a><br>
 
 </body>
