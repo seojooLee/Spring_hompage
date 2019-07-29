@@ -55,6 +55,9 @@
 	</form>
 	<br> ${map.count} 개의 게시글이 존재합니다.
 	<br>
+ 	
+	
+	
 
 
 	<table border="1" width="600px">
@@ -108,9 +111,11 @@
 
 		</tr>
 	</table>
-	<form>
+	<c:if test= "${sessionScorpe.useId != null}">
+	 	<form> 
 		<input type="button" value="글쓰기" id="btnWrite">
 	</form>
+	</c:if>
 
 </body>
 </html>
