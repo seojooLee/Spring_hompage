@@ -91,6 +91,7 @@ public class BoardController {
 	// 3) 등록
 	@RequestMapping(value = "board/insert", method = RequestMethod.POST)
 	public String insert(@ModelAttribute BoardVO vo, HttpSession session) throws Exception {
+		
 		String writer = (String) session.getAttribute("userId");
 		String userName = (String) session.getAttribute("userName");
 		vo.setWriter(writer);

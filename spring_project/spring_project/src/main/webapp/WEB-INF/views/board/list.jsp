@@ -24,6 +24,23 @@
 </script>
 
 </head>
+
+<style>
+#tbl_board{
+text-align : center;
+ border-collapse: collapse;
+
+}
+#tbl_board th{
+ padding :20px;
+ background-color : pink;
+ }
+.map_count{
+color : blue;
+}
+
+
+</style>
 <body>
 	<%@ include file="../include/menu.jsp"%>
 	<h2>게시글 목록</h2>
@@ -32,35 +49,25 @@
 	<form name="form1" method="post" action="${path}/board/list">
 
 		<select name="searchOption">
+			<option value="all"		<c:out value="${map.searchOption == 'all'? 'selected':''}"/>>	전체(작성자+내용+제목)</option>
 
-			<option value="all"
-				<c:out value="${map.searchOption == 'all'? 'selected':''}"/>>
-				전체(작성자+내용+제목)</option>
+			<option value="writer"<c:out value="${map.searchOption == 'writer'? 'selected':''}"/>>	작성자</option>
 
-			<option value="writer"
-				<c:out value="${map.searchOption == 'writer'? 'selected':''}"/>>
-				작성자</option>
+			<option value="content"		<c:out value="${map.searchOption == 'content'? 'selected':''}"/>>	내용</option>
 
-			<option value="content"
-				<c:out value="${map.searchOption == 'content'? 'selected':''}"/>>
-				내용</option>
+			<option value="title"	<c:out value="${map.searchOption == 'title'? 'selected':''}"/>>		제목</option>
 
-			<option value="title"
-				<c:out value="${map.searchOption == 'title'? 'selected':''}"/>>
-				제목</option>
-
-		</select> <input type="text" name="keyword" value="${map.keyword}"> <input
-			type="submit" value="조회">
+		</select> <input type="text" name="keyword" value="${map.keyword}"> <input	type="submit" value="조회">
 
 	</form>
-	<br> ${map.count} 개의 게시글이 존재합니다.
+	<br> 
+	
+	<b><a class = "map_count">${map.count}</a></b> 개의 게시글이 존재합니다.
 	<br>
  	
 	
 	
-
-
-	<table border="1" width="600px">
+	<table border="1" width="600px" id= "tbl_board">
 		<tr>
 			<th>번호</th>
 			<th>제목</th>
@@ -72,22 +79,23 @@
 			<tr>
 				<td>${row.bno}</td>
 				<td><a href="${path}/board/view?bno=${row.bno}">${row.title}</a></td>
-
 				<td>${row.writer}</td>
 				<td><fmt:formatDate value="${row.regdate}" pattern="yyyy-MM-dd" /></td>
 				<td>${row.viewcnt}</td>
+ 				
 			</tr>
 		</c:forEach>
+	
 		<tr>
-			<td colspan="5"><c:if test="${map.boardPager.curBlock>1 }">
+			<td colspan="5">
+			<c:if test="${map.boardPager.curBlock>1 }">
 					<a href="javascript:list('1')"> [처음]</a>
 					<!--페이지가 1이면 처음이라는 글을 보여줌  -->
-				</c:if> <c:if test="${map.boardPager.curBlock>1 }">
+			</c:if> <c:if test="${map.boardPager.curBlock>1 }">
 					<a href="javascript:list('${map.boardPager.prevPage}')"> [이전]</a>
 					<!--페이지가 1이면 처음이라는 글을 보여줌  -->
-				</c:if> <!--처음, 이전, 번호들 나열, 다음, 끝  --> <c:forEach var="num"
-					begin="${map.boardPager.blockBegin}"
-					end="${map.boardPager.blockEnd}">
+				</c:if> <!--처음, 이전, 번호들 나열, 다음, 끝  --> 
+				<c:forEach var="num" begin="${map.boardPager.blockBegin}" end="${map.boardPager.blockEnd}">
 					<c:choose>
 						<c:when test="${num==map.boardPager.curPage}">
 							<span style="color: red"> ${num} </span>
@@ -104,12 +112,12 @@
 				
 					<c:if test="${map.boardPager.curBlock<=map.boardPager.totPage}">
 				<a href="javascript:list('${map.boardPager.totPage }')">끝</a> 
-				</c:if>
-			 
+				</c:if> 
 				
 				</td>
 
 		</tr>
+	
 	</table>
 	<c:if test= "${sessionScorpe.useId != null}">
 	 	<form> 

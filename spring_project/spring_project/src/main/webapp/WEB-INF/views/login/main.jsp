@@ -15,8 +15,6 @@
 
 <a href ="${path}/project/login/logout">로그아웃</a>
 <!-- login/login : id / password : 로그인 버튼 클릭  -->
-
  
-
 </body>
 </html>

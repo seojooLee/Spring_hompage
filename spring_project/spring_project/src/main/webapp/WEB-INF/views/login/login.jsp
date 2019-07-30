@@ -31,8 +31,7 @@ $(function(){
 function list(page){
 	location.href="${path}/board/list?curPage=" + page + "&searchOption=${map.searchOption}" + "&keyword=${map.keyword}";
 }
-
-
+ 
 </script>
 
 </head>
@@ -52,7 +51,6 @@ function list(page){
 <c:if test="${msg=='logout'}">
 <div>로그아웃되었습니다.</div>
 </c:if>
-${msg1}
-
+ 
 </body>
 </html>

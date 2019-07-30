@@ -11,9 +11,15 @@ insert into tbl_board (title, content, writer)
 values (#{title}, #{content}, #{writer})
 </insert>
 
-<!-- 2) 게시글 상세보기 -->
-<select id="view" resultType="com.example.project.vo.BoardVO">
+<!-- 2-1) 게시글 상세보기 -->
+<select id="view1" resultType="com.example.project.vo.BoardVO">
 select * from tbl_board where bno=#{bno}
+</select>
+
+<!-- 2-2> 게시글 상세보기 ==> 작성자와 아이디가 같은경우에만 수정, 삭제 -->
+<select id="view" resultType="com.example.project.vo.BoardVO">
+select bno, title, content, writer, b.regdate, viewcnt, m.username from tbl_board b, tbl_member m
+ where bno=#{bno} and b.writer=m.userid
 </select>
 
 <!-- 3) 게시글 수정 -->
@@ -40,21 +46,8 @@ select * from tbl_board <include refid="search"></include>
 order by bno desc, regdate desc
 </select>
 
-<!--  5-2 검색 기능이 있는 전체 목록 -->
-<sql id="search">
-	<choose>
-		<when test= "searchOption.equals('all')">
-			where writer like concat('%',#{keyword}, '%')
-			or content like concat('%',#{keyword},'%')
-			or title like concat('%',#{keyword},'%')
-		 </when>
-	
-	<otherwise>
-	where ${searchOption} like concat('%',#{keyword}, '%') 
-	</otherwise>  
-	</choose> 
-</sql>
- 
+
+
 <!--5-3) 페이지 기능이 들어가는 목록   -->
 <select id="listAll3" resultType="com.example.project.vo.BoardVO">
 select * from tbl_board
@@ -64,24 +57,45 @@ select * from tbl_board
 </select>
 
 <!--5-4) 회원전용 게시판 목록  -->
-<select id="listAll" resultType="com.example.project.vo.BoardVO">
- select bno,title, content, b.regdate, viewcnt, username where tbl_board b, tbl_member m
-
-
+<select id="listAll4" resultType="com.example.project.vo.BoardVO">
+ select bno,title, content,writer, b.regdate, viewcnt, username from tbl_board b, tbl_member m
 <include refid="search"></include>
  order by bno desc, regdate desc
  <include refid="paging"></include>
 </select>
 
-
-
+<!--5-5) 댓글 표시되는 게시판 목록  -->
+<select id="listAll" resultType="com.example.project.vo.BoardVO">
+ select bno,title, content,writer, b.regdate, viewcnt, m.username,(select count(*) from tbl_reply where bno=#{bno}) as recnt
+ from tbl_board b, tbl_member m
+ 
+ <include refid="search"></include>
+ order by bno desc, b.regdate desc
+ <include refid="paging"></include>
+</select>
 
 
 <sql id = "paging"> 
-limit #{start},#{end} 
+limit #{start}, #{end} 
 </sql>
 
-
+<!--  5-2 검색 기능이 있는 전체 목록 -->
+<sql id="search">
+	<choose>
+		<when test= "searchOption.equals('all')">
+			WHERE b.writer = m.userid
+			and (username like concat('%',#{keyword}, '%')
+ 		     or writer like concat('%',#{keyword},'%') 
+ 			or content like concat('%',#{keyword},'%')
+			or title like concat('%',#{keyword},'%'))
+		 </when>
+	
+	<otherwise>
+	
+	where b.writer = m.userid and ${searchOption} like concat('%',#{keyword}, '%') 
+	</otherwise>  
+	</choose> 
+</sql>
 <!-- 6) 조회수 -->
 <update id="increaseViewcnt">
 update tbl_board set viewcnt = viewcnt +1
@@ -91,7 +105,7 @@ where bno=#{bno}
 
 <!-- 7> 검색어 들어간 레코드 갯수 -->
 <select id = "countArticle" resultType="int">
-select count(*) from tbl_board
+select count(*) from tbl_board b, tbl_member m
 <include refid="search"></include> 
  </select>
 </mapper>

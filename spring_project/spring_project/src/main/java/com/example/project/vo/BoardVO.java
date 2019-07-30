@@ -12,6 +12,7 @@ public class BoardVO {
 	private Date regdate; //작성날짜
 	private int viewcnt; //조회수 ==> getter/setter 추가
 	private String userName; // 사용자 이름
+	private int recnt;//게시판 글 옆에 댓글 갯수 표시
 	//getter/setter
 	//toString 자동추가 ==>
 	
@@ -56,6 +57,15 @@ public class BoardVO {
 	}
 	public String getUserName() {
 		return userName;
+	}
+	
+	
+	
+	public int getRecnt() {
+		return recnt;
+	}
+	public void setRecnt(int recnt) {
+		this.recnt = recnt;
 	}
 	@Override
 	public String toString() {

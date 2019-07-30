@@ -54,12 +54,16 @@ $("#btnDelete").click(function(){
 작성날짜 : <fmt:formatDate value="${dto.regdate}" pattern="yyyy-MM-dd a HH:mm:ss" />
 조회수 : ${dto.viewcnt} <br>
 제목 : <input type="text" name="title" id="title" size="80" value="${dto.title}"> <br>
-내용 : <textarea name="content" id="content" rows="5" cols="100">${dto.content }</textarea> <br>
+내용 : <textarea name="content" id="content" rows="5" cols="100">${dto.content}</textarea> <br>
 작성자: <input type="text" name="writer" id="writer" value="${dto.writer}"> <br>
 
-<input type="hidden" value="${dto.bno}" name="bno">
+<c:if test="${sessionScope.userId==dto.writer}"> 
 <input type="button" value="수정" id="btnUpdate">
-<input type="button" value="삭제" id="btnDelete">
+<input type="button" value="삭제" id="btnDelete"> 
+</c:if>
+ 
+<input type="hidden" value="${dto.bno}" name="bno">
+
 <input type="button" value="목록보기" id="btnList">
 
 
