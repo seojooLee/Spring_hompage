@@ -1,5 +1,8 @@
 @charset "EUC-KR";
  
+ html{
+ background-color : grey;
+ }
 /* 텍스트 상자 */
 
 /* 버튼 꾸미기 */
@@ -10,4 +13,7 @@
 	height : 50px;
 	border-radius : 20px;
 	
+}
+h3{
+	color : white;
 }
