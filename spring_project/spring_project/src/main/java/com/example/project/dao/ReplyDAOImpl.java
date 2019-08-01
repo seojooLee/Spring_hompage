@@ -15,8 +15,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 	
 	//주입
 	@Inject
-	SqlSession sqlSession;
-	
+	SqlSession sqlSession; 
 	
 	@Override
 	public List<ReplyVO> list(Integer bno) {

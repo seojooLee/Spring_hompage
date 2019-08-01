@@ -11,10 +11,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
  insert into tbl_reply(bno, replytext, replyer)
  values(#{bno}, #{replytext}, #{replyer}) 
  </insert>
+ 
  <!--  2> 댓글목록 -->
  <select id="listReply" resultType="com.example.project.vo.ReplyVO">
- select rno, bno, replytext, replyer, username, r.regdate, r.updatedate from 
- tbl_reply r, tbl_member m
+ select rno, bno, replytext, replyer, username, r.regdate, r.updatedate 
+ from tbl_reply r, tbl_member m
  where r.replyer = m.userid and bno = #{bno}
  order by rno desc
  </select>

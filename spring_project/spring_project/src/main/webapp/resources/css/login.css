@@ -1,0 +1,13 @@
+@charset "EUC-KR";
+ 
+/* 텍스트 상자 */
+
+/* 버튼 꾸미기 */
+.btn1 {
+	background-color: black;
+	color: white;
+	width:150px;
+	height : 50px;
+	border-radius : 20px;
+	
+}

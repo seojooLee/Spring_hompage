@@ -57,9 +57,7 @@ public class BoardVO {
 	}
 	public String getUserName() {
 		return userName;
-	}
-	
-	
+	} 
 	
 	public int getRecnt() {
 		return recnt;

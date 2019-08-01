@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <%@ include file = "../include/header.jsp" %>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+
 <script>
 $(function(){
 	$("#btnLogin").click(function(){ 
@@ -33,6 +34,8 @@ function list(page){
 }
  
 </script>
+<link rel="stylesheet" type = "text/css" href="../resources/css/login.css">
+<!-- 블루비웹스토어 -->
 
 </head>
 <body>
@@ -42,7 +45,7 @@ function list(page){
 <form name="form1" method="get" action="${path}/project/login/loginCheck">
 아이디 : <input type="text" name="userId" id="userId"> <br>
 비밀번호 : <input type="password" name="userPw" id="userPw"> <br>
-<input type="submit" value="로그인" id="btnLogin">
+<input type="submit" value="로그인" id="btnLogin" class = "btn1">
 <input type="reset" value="로그인 취소">
 </form>
 <c:if test="${msg=='실패'}">
