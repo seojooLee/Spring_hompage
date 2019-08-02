@@ -50,7 +50,15 @@ listReply2();//listReply2() 변경
 $("#btnReply").click(function(){
 	var replytext = $("#replytext").val();
 	var bno = "${dto.bno}";
-	var param = "replytext="+replytext+"&bno="+bno;
+	/*추가*/
+	
+	var secretreply="n";
+	if($("#secretreply").is(":checked")){
+		secretreply="y";
+	}
+	 
+	
+	var param = "replytext="+replytext+"&bno="+bno + "&secretreply="+secretreply;
 	console.log(param);
 	
 	$.ajax({
@@ -141,7 +149,21 @@ function changeDate(date){
 			type="button" value="목록보기" id="btnList">
 
 	</form>
-	<!-- 댓글 작성 공간 -->
+	 
+	 <!-- **로그인 한 회원에게만 댓글 작성폼이 보이게 처리 -->
+	 <c:if test="${sessionScope.userId != null}">
+	 
+	 <textarea rows ="5" cols ="80" id = "replytext" placeholder="댓글을 입력해주세요"> </textarea>
+	 <br>
+	 <input type="checkbox" id="secretreply">비밀댓글
+	
+ 	<input type="button" value="댓글작성" id="btnReply">
+	 
+	 
+	 
+	 </c:if>
+	
+<%-- 	<!-- 댓글 작성 공간 -->
 	<div>
 		<c:if test="${sessionScope.userId != null}">
 			<textarea name="replytext" id="replytext" rows="5" cols="80"
@@ -152,7 +174,7 @@ function changeDate(date){
 			<input type="button" value="댓글작성" id="btnReply">
 		</c:if>
 
-	</div>
+	</div> --%>
 
 	<!-- 댓글 출력 -->
 	<div id="listReply">

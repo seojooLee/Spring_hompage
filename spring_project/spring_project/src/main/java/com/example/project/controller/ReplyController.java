@@ -5,17 +5,17 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.project.service.ReplyService;
 import com.example.project.vo.ReplyVO;
 
-@Controller //혹은 @RestController 중에 하나 //빈등록
+@RestController //혹은 @RestController 중에 하나 //빈등록
 public class ReplyController {
 	//주입
 	@Inject
@@ -33,8 +33,8 @@ public class ReplyController {
 	//2> 댓글 목록 --> controller 이용==> 뷰화면을 따로 만듬
 	
 	@RequestMapping("reply/list")
-	public ModelAndView list(@RequestParam int bno, ModelAndView mav) {
-		List<ReplyVO> list = replyService.list(bno);
+	public ModelAndView list(@RequestParam int bno, ModelAndView mav , HttpSession session) {
+		List<ReplyVO> list = replyService.list(bno,session);
 		mav.addObject("list",list);
 		mav.setViewName("board/replyList");
 		return mav; 
@@ -43,8 +43,8 @@ public class ReplyController {
 	//3> 댓글 목록 --> RestController 이용 -> ajax로 전달된 값을 
 	@RequestMapping("reply/listjson")
 	@ResponseBody //리턴 데이터를 json으로 변환
-	public List<ReplyVO> listJson(@RequestParam int bno){
-		 List<ReplyVO> list = replyService.list(bno);
+	public List<ReplyVO> listJson(@RequestParam int bno , HttpSession session){
+		 List<ReplyVO> list = replyService.list(bno,session);
 		 return list; 
 	}
 

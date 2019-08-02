@@ -3,6 +3,7 @@ package com.example.project.service;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,11 @@ public class ReplyServiceImpl implements ReplyService {
 	@Inject
 	ReplyDAO replyDao;
 	
-	@Override
-	public List<ReplyVO> list(Integer bno) {
-		return replyDao.list(bno);
- 	}
+	/*
+	 * @Override public List<ReplyVO> list(Integer bno, HttpSession session); return
+	 * replyDao.list(bno); }
+	 */ 
+	
 
 	@Override
 	public void create(ReplyVO vo) {
@@ -36,6 +38,27 @@ public class ReplyServiceImpl implements ReplyService {
 		replyDao.delete(rno);
 		
  		
+	}
+
+	@Override
+	public List<ReplyVO> list(Integer bno, HttpSession session) {
+		List<ReplyVO> items = replyDao.list(bno);
+		String userId = (String) session.getAttribute("userId");
+		for(ReplyVO vo : items) {
+			if(vo.getSecretreply().equals("y")) {
+				if(userId == null) {
+					vo.setReplytext("비밀댓글");
+				}else { 
+					String writer = vo.getWriter();
+					String replyer = vo.getReplyer();
+					
+					if(!userId.equals(writer)&&!userId.equals(replyer)) {
+						vo.setReplytext("비밀댓글");
+					}
+				}
+			}
+		}
+ 		return items;
 	}
 
 }

@@ -13,6 +13,10 @@ public class ReplyVO {
 	private Date updatedate;//수정날짜
 	private String userName;//작성자(회원이름)
 	
+	//댓글 추가 영역 ==> getter/setter. tostring 수정
+	private String secretreply;
+	private String writer;
+	
 	
 	public Integer getRno() {
 		return rno;
@@ -59,10 +63,27 @@ public class ReplyVO {
 	}
 	
 	
+ 
+	
+	public String getSecretreply() {
+		return secretreply;
+	}
+	public void setSecretreply(String secretreply) {
+		this.secretreply = secretreply;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "ReplyVO [rno=" + rno + ", bno=" + bno + ", replytext=" + replytext + ", replyer=" + replyer
-				+ ", regdate=" + regdate + ", updatedate=" + updatedate + ", userName=" + userName + "]";
+				+ ", regdate=" + regdate + ", updatedate=" + updatedate + ", userName=" + userName + ", secretreply="
+				+ secretreply + ", writer=" + writer + "]";
 	}
  
 	
